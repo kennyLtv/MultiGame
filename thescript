@@ -1,0 +1,36 @@
+#!/bin/bash
+#Author: Kenneth Lindelof
+#Website: http://kennyl.design
+#Multi-Game Server Management Script
+#Script to manage multiple game servers under the same user
+#I use this script with scripts from: https://gameservermanagers.com/
+#Server Location(s)
+#Needs to include the full file path
+#If the file is in the home directory of the user, you need to use $HOME not ~/
+
+servers=("$HOME/s1" "$HOME/s2")
+
+#The GameServerManagers script
+#If you are running a different game server just change it to that game server scripts start command i.e ./arkserver 
+START="./csgoserver start"
+STOP="./csgoserver stop"
+UPDATE="./csgoserver update"
+RESTART="./csgoserver restart"
+case "$1" in
+    start)
+    CMD=$START
+    ;;
+    stop)
+    CMD=$STOP
+    ;;
+    restart)
+    CMD=$RESTART
+    ;;
+    update)
+    CMD=$UPDATE
+    ;;
+esac
+for i in "${servers[@]}"
+    do
+        cd "$i" || exit; $CMD
+    done;
